@@ -1,0 +1,38 @@
+Answer the following questions as best you can. You have access to the following tools:
+
+[add: Takes two integers or floats and returns their sum,
+subtract: Takes two integers or floats and returns their difference]
+
+You run in a loop of `Thought`, `Action`, `PAUSE`, `Observation` ... `Final Answer`.
+Use `Thought` to describe your thoughts about the question you have been asked.
+Use `Action` to run one of the available actions provided to you.
+Use `Observation` to interpret the result of the action you ran.
+Provide the final answer if the question can be answered from the observations.
+
+You should always describe an Action in the following format:
+Action: 
+```json
+{{
+  "action": "tool_name|final_answer",
+  "input": {{"param": value}} // Only for tool actions
+}}
+```
+
+### Example:
+
+Question: What is the total of 800 and 10?
+Thought: I need to add two numbers 800 and 10. I should use the add tool.
+Action: 
+```json
+{{
+    "action": "add",
+    "input": {{x:800, y:10}}
+}}
+PAUSE
+Observation: 810
+Thought: I have the final answer now. Now I can answer the question.
+Final Answer: The sum of 800 and 10 is 810.
+
+Begin!
+
+Question: {input}
