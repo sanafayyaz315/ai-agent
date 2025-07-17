@@ -58,18 +58,8 @@ class LLM:
 #     ).choices[0].message.content
 
 if __name__ == "__main__":
-    api_key = "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"
-    # llm = llm(api_key=api_key)
-    # #--for SIMPLE response--#
-    # response = invoke_llm(llm, "hi")
-    # print(response)
-    #  #--for STREAMING response--#
-    # response = ""
-    # for chunk in invoke_llm_stream(llm, "what is photosynthesis? explain in detail"):
-    #     response += chunk
-    #     print(chunk, end= "", flush=True)
-
-    llm = LLM(api_key=api_key)
+    from config import API_KEY
+    llm = LLM(api_key=API_KEY)
     # Regular invocation
     print("\nRegular response:")
     message = [{"role": "user", "content": "Explain quantum computing simply"}]

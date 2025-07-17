@@ -113,8 +113,12 @@ def run(llm, message):
  
 
 if __name__ == "__main__":
-    api_key = "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"
-    llm = LLM(api_key=api_key)
+
+    from config import (
+        API_KEY,
+        MODEL
+        )
+    llm = LLM(api_key=API_KEY, model=MODEL)
     message = "what is the sum and difference of 5000 and 699?"
     response, state, messages= run(llm, message)
 
