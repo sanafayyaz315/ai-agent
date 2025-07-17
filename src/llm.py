@@ -12,21 +12,22 @@ class LLM:
         self.llm = OpenAI(api_key=api_key)
         self.model = model
 
-    def invoke(self, prompt: str) -> str:
+    def invoke(self, messages: list) -> str:
         """Get complete response."""
         response = self.llm.chat.completions.create( 
         model=self.model,
-        messages=[{"role": "user", "content": prompt}],
+        messages=messages,
         seed=42
     )
         return response.choices[0].message.content
 
-    def stream(self, prompt: str):
+    def stream(self, messages: list):
         """Stream response token by token."""
         stream = self.llm.chat.completions.create(
             model=self.model,
-            messages=[{"role": "user", "content": prompt}],
-            stream=True
+            messages=messages,
+            stream=True,
+            seed=42
         )
         for chunk in stream:
             if content := chunk.choices[0].delta.content:
@@ -70,13 +71,15 @@ if __name__ == "__main__":
 
     llm = LLM(api_key=api_key)
     # Regular invocation
-    # print("\nRegular response:")
-    # response = llm.invoke("Explain quantum computing simply")
-    # print(response)
+    print("\nRegular response:")
+    message = [{"role": "user", "content": "Explain quantum computing simply"}]
+    response = llm.invoke(message)
+    print(response)
 
     # Streaming
     print("\nStreaming response:")
-    for chunk in llm.stream("Explain photosynthesis in detail"):
+    message = [{"role": "user", "content": "Explain photosynthesis in detail"}]
+    for chunk in llm.stream(message):
         print(chunk, end="", flush=True)
     
     # Invokes __call__ where invoke is default
