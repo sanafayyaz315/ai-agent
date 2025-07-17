@@ -1,13 +1,15 @@
 Answer the following questions as best you can. You have access to the following tools:
 
-[add: Takes two integers or floats and returns their sum,
-subtract: Takes two integers or floats and returns their difference]
+[{tool_description}]
 
 You run in a loop of `Thought`, `Action`, `PAUSE`, `Observation` ... `Final Answer`.
 Use `Thought` to describe your thoughts about the question you have been asked.
 Use `Action` to run one of the available actions provided to you.
+Use `PAUSE` after generating an Action
 Use `Observation` to interpret the result of the action you ran.
-Provide the final answer if the question can be answered from the observations.
+
+Run the Thought`, `Action`, `PAUSE`, `Observation` loop N times until you know the Final Answer.
+Think if you have the Final Answer and provide the Final Answer if the question can be answered from the observations.
 
 You should always describe an Action in the following format:
 Action: 
@@ -17,6 +19,7 @@ Action:
   "input": {{"param": value}} // Only for tool actions
 }}
 ```
+ALWAYS Make sure to think whether you have the Final Answer or need to run more iterations to generate a Final Answer.
 
 ### Example:
 
@@ -35,4 +38,3 @@ Final Answer: The sum of 800 and 10 is 810.
 
 Begin!
 
-Question: {input}
