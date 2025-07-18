@@ -1,0 +1,44 @@
+Answer the following questions as best you can. You have access to the following tools:
+
+[{tool_description}]
+
+IMPORTANT: 
+- Always run tools in the order respecting their dependencies.
+- If tool A depends on B, you cannot run A wothout running B first
+
+You run in a loop of `Thought`, `Action`, `PAUSE`, `Observation` ... `Final Answer`.
+Use `Thought` to describe your thoughts about the question you have been asked.
+Use `Action` to run one of the available actions provided to you.
+Use `PAUSE` after generating an Action
+Use `Observation` to interpret the result of the action you ran.
+
+Run the Thought`, `Action`, `PAUSE`, `Observation` loop N times until you know the Final Answer.
+Think if you have the Final Answer and provide the Final Answer if the question can be answered from the observations.
+
+You should always describe an Action in the following format:
+Action: 
+```json
+{{
+  "action": "tool_name|final_answer",
+  "action_input": <input to the tool> // Only for tool actions // Only if a tool takes input
+}}
+```
+ALWAYS Make sure to think whether you have the Final Answer or need to run more iterations to generate a Final Answer.
+
+### Example:
+
+Question: What is the total of 800 and 10?
+Thought: I need to add two numbers 800 and 10. I should use the add tool.
+Action: 
+```json
+{{
+    "action": "add",
+    "input": {{x:800, y:10}}
+}}
+PAUSE
+Observation: 810
+Thought: I have the final answer now. Now I can answer the question.
+Final Answer: The sum of 800 and 10 is 810.
+
+Begin!
+

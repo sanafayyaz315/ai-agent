@@ -16,7 +16,7 @@ Action:
 ```json
 {{
   "action": "tool_name|final_answer",
-  "input": {{"param": value}} // Only for tool actions
+  "action_input": {{"param": value}} // Only for tool actions
 }}
 ```
 ALWAYS Make sure to think whether you have the Final Answer or need to run more iterations to generate a Final Answer.
