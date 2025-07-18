@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  postgres_db:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 25432:5432
+    restart: always
+
+  chainlit_db:
+    image: postgres:latest
+    container_name: chainlit_db
+    environment:
+      POSTGRES_DB: chainlit
+      POSTGRES_USER: chainlit
+      POSTGRES_PASSWORD: password
+    volumes:
+      - chainlit_data:/var/lib/postgresql/data
+    ports:
+      - 25433:5432
+    restart: always
+
+volumes:
+  postgres_data:
+  chainlit_data:
