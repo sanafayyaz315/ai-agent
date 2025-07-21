@@ -59,13 +59,19 @@ async def on_message(message: cl.Message):
         known_actions = cl.user_session.get("known_actions")
 
         response = ""
+        stop_step_stream = False
 
         # Create a step for streaming intermediate steps
         async with cl.Step(name="Intermediate Steps") as step:
             async for kind, chunk in run(llm, message.content, agent="text-to-sql"):
                 if kind == "response":
                     response += chunk
-                    await step.stream_token(chunk)  # stream LLM's thought process
+                    if not stop_step_stream:
+                        if "Final Answer:" not in response[-20:]:
+                            await step.stream_token(chunk)
+                        else:
+                            stop_step_stream = True
+                      # stream LLM's thought process
                 elif kind == "observation":
                     # Print to terminal and stream to step as a new token line
                     print("\nObservation:", chunk, flush=True)
@@ -76,7 +82,7 @@ async def on_message(message: cl.Message):
         if idx != -1:
             final_answer = response[idx:].strip()
         else:
-            final_answer = "Unable to find final answer in response."
+            final_answer = "FE error: Unable to find final answer in response."
 
         # Send the final answer as a separate message
         await cl.Message(content=final_answer).send()

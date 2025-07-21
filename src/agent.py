@@ -88,7 +88,7 @@ async def run(llm, message, agent="text-to-sql"):
     state = []
     next_prompt = message
 
-    for step in range(max_iterations):
+    for _ in range(max_iterations):
         # append the user question, observation as next_prompt
         messages.append({"role": "user", "content": next_prompt})
         # collect streaming reponse from the llm
@@ -100,7 +100,6 @@ async def run(llm, message, agent="text-to-sql"):
         # append response to messages
         messages.append({"role": "assistant", "content": response})
 
-        # state.append(response)
         state.append({"user":  next_prompt})
         state.append({"assistant":  response})
 
